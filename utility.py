@@ -1,25 +1,14 @@
 from fastapi import FastAPI
-from database import Base, SessionLocal, engine
+from database import Base, SessionLocal
 from models import ProductDB
-
 
 #Base.metadata.create_all(bind=engine)
 
-
-
 def init_products():
-
-    print("MMinit_products")
 
     db = next(get_db())
 
-
-    print(f"count=> {db.query(ProductDB).count()}")
-
-
     if db.query(ProductDB).count() == 0:
-
-        print("MMcount")
 
         products = [
             ProductDB(code="P001", description="Prodotto 1", imageUrl="img1.png", price=10.0),
