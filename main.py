@@ -9,13 +9,13 @@ import utility
 from typing import cast
 import uuid
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import engine, create_engine
+from sqlalchemy import Engine, create_engine
 
 app = FastAPI()
 
 @app.on_event("startup")
 def startup_event():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=Engine)
     utility.init_products()
 
 app.add_middleware(
