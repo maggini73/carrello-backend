@@ -2,20 +2,20 @@ from datetime import datetime
 from typing import List
 from fastapi import FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from database import Base, SessionLocal
+from database import DATABASE_URL, Base, SessionLocal
 from models import OrderDB, OrderLineDB, ProductDB
 from schemas import CartItem, Order, OrderLine, OrderRequest, Product
 import utility
 from typing import cast
 import uuid
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import Engine, create_engine
+from database import engine
 
 app = FastAPI()
 
 @app.on_event("startup")
 def startup_event():
-    Base.metadata.create_all(bind=Engine)
+    Base.metadata.create_all(bind=engine)
     utility.init_products()
 
 app.add_middleware(
